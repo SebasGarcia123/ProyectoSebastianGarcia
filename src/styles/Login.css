@@ -1,0 +1,19 @@
+/* .fotoPortada{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-image: url('/src/assets/foto_login.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.btn-naranja {
+  background-color: #FF7900!important;
+  color: black
+}
+
+.barra-superior{
+    background-color: rgba(224, 185, 254, 0.94);
+    color: wheat;
+} */
