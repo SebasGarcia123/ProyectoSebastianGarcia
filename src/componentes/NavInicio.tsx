@@ -7,8 +7,8 @@ export const NavInicio = () => {
     <AppBar position="static" sx={{ px: 2, backgroundColor: '#9e9e9e' }}>
       <Toolbar>
         {/* Logo */}
-        <Typography variant="h6" sx={{ mr: 4 }}>
-          <img src= {logo} alt="Logo" width="200" />
+        <Typography variant="h6" sx={{ mr: 4, p:2, display: 'flex', alignItems: 'center' }}>
+          <img src= {logo} alt="Logo" width="200"  />
         </Typography>
 
         {/* Links izquierda */}
