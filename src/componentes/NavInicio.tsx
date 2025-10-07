@@ -22,7 +22,7 @@ export const NavInicio = () => {
         <Button component={Link} to="/registro" color="primary" variant="outlined" sx={{ mr: 2, backgroundColor: "#fafafa"}}>
           Registrarse
         </Button>
-        <Button component={Link} to="/login" color="primary" variant="contained">
+        <Button component={Link} to="/Login" color="primary" variant="contained">
           Iniciar Sesión
         </Button>
       </Toolbar>

@@ -1,5 +1,5 @@
 import React from 'react'
-import fotoLogin from '../../assets/foto_login.jpg';
+//import fotoLogin from './src/assets/foto_login.jpg';
 
 
 export const Login = () => {
@@ -10,8 +10,8 @@ export const Login = () => {
                 <h1 className='py-3'>Bienvenido a Conexion 360</h1>
                 <h5 className='py-1'>Tu espacio cuando lo necesites</h5>
         </div>
-                <section className = "flex-fill"
-                          style={{ backgroundImage: `url(${fotoLogin})` }}>
+                {/* <section className = "flex-fill"
+                          style={{ backgroundImage: `url(${fotoLogin})` }}> */}
             <form className="p-4 transparente rounded-4 w-25 mx-auto">
                 <div className="form-group border p-4 rounded-4">
                   <h4 className='text-center mb-4'>Completa los datos para ingresar</h4>
@@ -36,7 +36,7 @@ export const Login = () => {
                 
             </form>
             </section>
-        </section>
+        {/* </section> */}
         </>
     )
 }
