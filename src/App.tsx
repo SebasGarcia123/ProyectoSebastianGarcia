@@ -2,21 +2,28 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { NavInicio } from './componentes/NavInicio'
 import { Home } from './componentes/Home'
 import { Login } from './componentes/Login'
-//import { Typography } from '@mui/material'
+import { Footer } from './componentes/Footer'
+import { Ubicaciones } from './componentes/Ubicaciones'
+import { Soluciones } from './componentes/Soluciones'
+import { GrandesEmpresas } from './componentes/GrandesEmpresas'
+import { Registro } from './componentes/Registro'
 
 const App = () => {
-  return (
-    <Router>
-      <NavInicio />
-        <Routes>
-           <Route path="/" element={<Home />} />
-          {/*<Route path="/ubicaciones" element={<Typography variant="h4">Servicios</Typography>} />
-          <Route path="/soluciones" element={<Typography variant="h4">Nosotros</Typography>} />
-          <Route path="/grandes_empresas" element={<Typography variant="h4">Contacto</Typography>} />
-          <Route path="/registro" element={<Typography variant="h4">Registro</Typography>} />*/}
-          <Route path="/login" element={<Login />} /> 
-        </Routes>
-    </Router>
-  )
+    return (
+        <>
+            <Router>
+                <NavInicio />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/ubicaciones" element={<Ubicaciones />} />
+                    <Route path="/soluciones" element={<Soluciones />} />
+                    <Route path="/grandes_empresas" element={<GrandesEmpresas />} />
+                    <Route path="/registro" element={<Registro />} />
+                    <Route path="/login" element={<Login />} />
+                </Routes>
+                <Footer />
+            </Router>
+        </>
+    )
 }
 export default App

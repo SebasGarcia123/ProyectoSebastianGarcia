@@ -1,0 +1,7 @@
+express generator
+Errores http pagina mdn
+npm install
+npm run start
+mongo descargar compass
+mongoose
+

@@ -1,42 +1,138 @@
-import React from 'react'
-//import fotoLogin from './src/assets/foto_login.jpg';
-
+import { Box, Button, TextField, Typography } from '@mui/material'
+import { Footer } from './Footer'
+import fondo from '../assets/fondo-login.jpg'
 
 export const Login = () => {
     return (
-        <>  
-        <section className = " min-vh-100">
-        <div className="text-center barra-superior">
-                <h1 className='py-3'>Bienvenido a Conexion 360</h1>
-                <h5 className='py-1'>Tu espacio cuando lo necesites</h5>
-        </div>
-                {/* <section className = "flex-fill"
-                          style={{ backgroundImage: `url(${fotoLogin})` }}> */}
-            <form className="p-4 transparente rounded-4 w-25 mx-auto">
-                <div className="form-group border p-4 rounded-4">
-                  <h4 className='text-center mb-4'>Completa los datos para ingresar</h4>
-                    <div className="mb-3">
-                        <label htmlFor="" className="form-label">
-                            Usuario: 
-                        </label>
-                        <br />
-                        <input type="text" className="form-control" />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="" className="form-label">
-                            Contraseña: 
-                        </label>
-                        <br />
-                        <input type="text" className="form-control" />
-                    </div>
-                    <div className='text-center mt-4'>
-                    <button type="submit" className="btn btn-naranja">Iniciar Sesión</button>
-                </div>
-                </div>
+        <Box 
+            sx={{
+                backgroundImage: `url(${fondo})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
                 
-            </form>
-            </section>
-        {/* </section> */}
-        </>
-    )
-}
+                display: 'flex',
+                flexDirection: 'column',
+                minHeight: '100vh',
+                pt: 1, 
+            }}
+        >
+            
+            <Box
+                sx={{
+                    flexGrow: 1, 
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
+                {/*Formulario de Login */}
+                <Box
+                    sx={{
+                        maxWidth: 400,
+                        width: '90%', // Agregamos un width para mejor responsividad
+                        p: 3,
+                        border: '1px solid #0e0d0dff',
+                        borderRadius: 4,
+                        backgroundColor: 'rgba(243, 245, 246, 0.85)',
+                    }}
+                >
+                    <Typography
+                        variant="h6"
+                        component="h4"
+                        sx={{ textAlign: 'center', marginBottom: 3 }}
+                    >
+                        Ingrese sus datos para iniciar sesión
+                    </Typography>
+                    <TextField
+                        id="username"
+                        label="Usuario"
+                        type="text"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        helperText="Ingrese un usuario registrado"
+                    />
+                    <TextField
+                        id="password"
+                        label="password"
+                        type="password"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        helperText="Ingrese su contraseña"
+                    />
+                    <Button variant="contained" color="primary" sx={{ marginTop: '16px', marginInline: 'auto', display: 'block' }}>
+                        Enviar
+                    </Button>
+                </Box>
+            </Box>
+            <Footer />
+        </Box>
+    );
+};
+
+// import { Box, Button, TextField, Typography } from '@mui/material'
+// import { Footer } from './Footer'
+
+// export const Login = () => {
+//     return (
+//         <>  
+//             <Box sx={{
+//                     backgroundColor: '#eff0f0ff',
+//                     display: 'flex',
+//                     flexDirection: 'column',
+//                     minHeight: '100vh',
+//                     pt: 10,
+//                 }}>
+
+            
+//                 <Box
+//                 sx={{
+//                     display: 'flex',
+//                     flexDirection: 'column',
+//                     justifyContent: 'center',
+//                     alignItems: 'center',
+//                     maxWidth: 400,
+//                     mx: 'auto',
+//                     p: 3,
+//                     border: '1px solid #0e0d0dff',
+//                     borderRadius: 4,
+//                     backgroundColor: '#f3f5f6ff',
+//                 }}
+//             >
+//                 <Typography
+//                     variant="h6"
+//                     component="h4"
+//                     sx={{ textAlign: 'center', marginBottom: 4 }}
+//                 >
+//                     Ingrese sus datos para iniciar sesión
+//                 </Typography>
+//                 <TextField
+//                     id="username"
+//                     label="Usuario"
+//                     type="text"
+//                     variant="outlined"
+//                     fullWidth
+//                     margin="normal"
+//                     helperText="Ingrese un usuario registrado"
+//                 />
+//                 <TextField
+//                     id="username"
+//                     label="password"
+//                     type="password"
+//                     variant="outlined"
+//                     fullWidth
+//                     margin="normal"
+//                     helperText="Ingrese su contraseña"
+//                 />
+//                 <Button variant="contained" color="primary" sx={{ marginTop: '16px', marginInline: 'auto', display: 'block' }}>
+//                     Enviar
+//                 </Button>
+//             </Box>
+//             <Footer />
+//             </Box>
+//         </>
+//     )
+// }
