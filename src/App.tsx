@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { NavInicio } from './componentes/NavInicio'
 import { Home } from './componentes/Home'
 import { Login } from './componentes/Login'
-import { Footer } from './componentes/Footer'
 import { Ubicaciones } from './componentes/Ubicaciones'
 import { Soluciones } from './componentes/Soluciones'
 import { GrandesEmpresas } from './componentes/GrandesEmpresas'
@@ -17,11 +16,13 @@ const App = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/ubicaciones" element={<Ubicaciones />} />
                     <Route path="/soluciones" element={<Soluciones />} />
-                    <Route path="/grandes_empresas" element={<GrandesEmpresas />} />
+                    <Route
+                        path="/grandes_empresas"
+                        element={<GrandesEmpresas />}
+                    />
                     <Route path="/registro" element={<Registro />} />
                     <Route path="/login" element={<Login />} />
                 </Routes>
-                <Footer />
             </Router>
         </>
     )

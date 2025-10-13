@@ -4,23 +4,22 @@ import fondo from '../assets/fondo-login.jpg'
 
 export const Login = () => {
     return (
-        <Box 
+        <Box
             sx={{
                 backgroundImage: `url(${fondo})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
-                
                 display: 'flex',
                 flexDirection: 'column',
                 minHeight: '100vh',
-                pt: 1, 
+                width: '100%',
+                pt: 1,
             }}
         >
-            
             <Box
                 sx={{
-                    flexGrow: 1, 
+                    flexGrow: 1,
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
@@ -63,22 +62,30 @@ export const Login = () => {
                         margin="normal"
                         helperText="Ingrese su contraseña"
                     />
-                    <Button variant="contained" color="primary" sx={{ marginTop: '16px', marginInline: 'auto', display: 'block' }}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        sx={{
+                            marginTop: '16px',
+                            marginInline: 'auto',
+                            display: 'block',
+                        }}
+                    >
                         Enviar
                     </Button>
                 </Box>
             </Box>
             <Footer />
         </Box>
-    );
-};
+    )
+}
 
 // import { Box, Button, TextField, Typography } from '@mui/material'
 // import { Footer } from './Footer'
 
 // export const Login = () => {
 //     return (
-//         <>  
+//         <>
 //             <Box sx={{
 //                     backgroundColor: '#eff0f0ff',
 //                     display: 'flex',
@@ -87,7 +94,6 @@ export const Login = () => {
 //                     pt: 10,
 //                 }}>
 
-            
 //                 <Box
 //                 sx={{
 //                     display: 'flex',

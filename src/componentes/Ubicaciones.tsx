@@ -1,7 +1,3 @@
-
-
 export const Ubicaciones = () => {
-  return (
-    <div>Ubicaciones</div>
-  )
+    return <div>Ubicaciones</div>
 }
