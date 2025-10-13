@@ -4,7 +4,7 @@ import logo from '../assets/logo.png'
 
 export const NavInicio = () => {
     return (
-        <AppBar position="static" sx={{ px: 2, backgroundColor: '#9e9e9e'}}>
+        <AppBar position="static" sx={{ px: 2, backgroundColor: '#9e9e9e' }}>
             <Toolbar sx={{ height: 100, alignItems: 'center' }}>
                 {/* Logo */}
                 <Button
@@ -21,7 +21,12 @@ export const NavInicio = () => {
                         '&:hover': { backgroundColor: 'transparent' },
                     }}
                 >
-                    <img src={logo} alt="Logo" width="200" style={{ borderRadius: '5px' }} />
+                    <img
+                        src={logo}
+                        alt="Logo"
+                        width="200"
+                        style={{ borderRadius: '5px' }}
+                    />
                 </Button>
                 {/* Links izquierda */}
                 <Box sx={{ flexGrow: 1 }}>

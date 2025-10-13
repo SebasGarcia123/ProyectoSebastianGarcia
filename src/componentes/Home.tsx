@@ -30,7 +30,7 @@ export const Home = () => {
                     }}
                 >
                     <Typography
-                        variant="h5"
+                        variant="body1"
                         sx={{
                             whiteSpace: 'pre-line',
                             lineHeight: 1.7,
