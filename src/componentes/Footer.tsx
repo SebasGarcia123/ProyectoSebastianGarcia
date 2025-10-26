@@ -6,10 +6,11 @@ export const Footer = () => {
         <Box
             sx={{
                 bgcolor: 'grey.900',
-                color: 'white',
+                color: 'black',
                 textAlign: 'center',
                 py: 3,
                 mt: 2,
+                backgroundColor: 'rgba(243, 245, 246, 0.85)',
             }}
         >
             <Typography variant="body2">
