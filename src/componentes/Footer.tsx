@@ -9,8 +9,9 @@ export const Footer = () => {
                 color: 'black',
                 textAlign: 'center',
                 py: 3,
-                mt: 2,
-                backgroundColor: 'rgba(243, 245, 246, 0.85)',
+                backgroundColor: 'rgba(136, 137, 138, 0.85)',
+                width: '100%',
+                
             }}
         >
             <Typography variant="body2">

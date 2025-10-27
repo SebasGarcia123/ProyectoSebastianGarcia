@@ -6,6 +6,7 @@ import { Ubicaciones } from './componentes/Ubicaciones'
 import { Soluciones } from './componentes/Soluciones'
 import { GrandesEmpresas } from './componentes/GrandesEmpresas'
 import { Registro } from './componentes/Registro'
+import { Footer } from './componentes/Footer'
 
 const App = () => {
     return (
@@ -23,6 +24,7 @@ const App = () => {
                     <Route path="/registro" element={<Registro />} />
                     <Route path="/login" element={<Login />} />
                 </Routes>
+                <Footer />
             </Router>
         </>
     )

@@ -1,5 +1,4 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
-import { Footer } from './Footer'
 import fondo from '../assets/fondo-login.jpg'
 
 export const Login = () => {
@@ -12,7 +11,7 @@ export const Login = () => {
                 backgroundRepeat: 'no-repeat',
                 display: 'flex',
                 flexDirection: 'column',
-                minHeight: '100vh',
+                minHeight: '83vh',
                 width: '100%',
                 pt: 1,
             }}
@@ -30,7 +29,7 @@ export const Login = () => {
                 <Box
                     sx={{
                         maxWidth: 400,
-                        width: '90%', // Agregamos un width para mejor responsividad
+                        width: '90%',
                         p: 3,
                         border: '1px solid #0e0d0dff',
                         borderRadius: 4,
@@ -55,7 +54,7 @@ export const Login = () => {
                     />
                     <TextField
                         id="password"
-                        label="password"
+                        label="Contraseña"
                         type="password"
                         variant="outlined"
                         fullWidth
@@ -75,7 +74,6 @@ export const Login = () => {
                     </Button>
                 </Box>
             </Box>
-            <Footer />
         </Box>
     )
 }
