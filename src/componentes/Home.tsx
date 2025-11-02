@@ -1,6 +1,5 @@
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import { Footer } from './Footer'
 import foto from '../assets/foto_portada.jpg'
 
 export const Home = () => {
@@ -10,7 +9,6 @@ export const Home = () => {
                 sx={{
                     width: '100%',
                     gap: 6,
-                    mt: 2,
                     backgroundColor: '#c9c6c6ff',
                     py: 6,
                     display: 'flex',
@@ -74,7 +72,6 @@ export const Home = () => {
                     />
                 </Box>
             </Box>
-            <Footer />
         </>
     )
 }

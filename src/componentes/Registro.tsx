@@ -13,6 +13,7 @@ import {
 import fondo from '../assets/foto-registro.jpg'
 import { useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { useNavigate } from "react-router-dom"
 
 export const Registro = () => {
     const [showPassword, setShowPassword] = useState(false)
@@ -27,6 +28,43 @@ export const Registro = () => {
         event: React.MouseEvent<HTMLButtonElement>
     ) => {
         event.preventDefault()
+    }
+
+    const [objData, setObjData] = useState({user:"", password:"", firstName:"", lastName:"", email:"", phone:"", document:"", role:"client"})
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setObjData(prev => ({ ...prev, [name]: value }))
+}
+    const navigate = useNavigate()
+
+    const senData = async() => {
+        try {
+            const response = await fetch('http://localhost:4000/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', 
+                },
+                body: JSON.stringify(objData),
+    });
+            if (!response.ok) {
+                throw new Error('Error en la solicitud')
+            }
+            const data = await response.json()
+            console.log('Respuesta del servidor:', data)
+
+            navigate("/login")
+
+        } catch (error) {
+            console.error('Error al enviar los datos:', error)
+        }
+    }
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        // Aquí puedes manejar el envío del formulario, por ejemplo, enviando objData a una API
+        console.log('Datos del formulario:', objData)
+        senData();
     }
 
     return (
@@ -55,10 +93,8 @@ export const Registro = () => {
                     backgroundColor: 'rgba(243, 245, 246, 0.85)',
                     display: 'flex',
                     flexDirection: 'column',
-                    marginTop: 10,
-                    //minHeight: '500px',
-                    //justifyContent: 'center',
-                    //alignItems: 'center',
+                    marginTop: 3,
+                    marginBottom: 6,
                 }}
             >
                 <Typography
@@ -69,41 +105,32 @@ export const Registro = () => {
                     Complete los campos para registrarse
                 </Typography>
 
-                <Box component="form">
+                <Box component="form" onSubmit={ handleSubmit }>
                     <Grid container spacing={4}>
-                        {/* Nombre */}
-                        <Grid item xs={12} sm={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        {/* Usuario */}
+                        <Grid size = {{ xs:12, sm:6}}>
                             <TextField
                                 required
-                                id="nombre"
-                                label="Nombre"
+                                name="user"
+                                label="Usuario"
                                 type="text"
                                 variant="outlined"
-                                sx={{ width: 239, marginRight: 3 }}
-                            />
-                        </Grid>
-
-                        {/* Apellido */}
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="apellido"
-                                label="Apellido"
-                                type="text"
-                                variant="outlined"
-                                sx={{ width: 239 }}
+                                //sx={{ width: 239 }}
+                                fullWidth
+                                onChange={handleChange}
                             />
                         </Grid>
 
                         {/* Contraseña */}
-                        <Grid item xs={12} sm={6}>
+                        <Grid size = {{ xs:12, sm:6}}>
                             <FormControl fullWidth variant="outlined">
-                                <InputLabel htmlFor="outlined-adornment-password">
+                                <InputLabel htmlFor="password">
                                     Contraseña
                                 </InputLabel>
                                 <OutlinedInput
                                     sx={{ marginRight: 3 }}
-                                    id="outlined-adornment-password"
+                                    name="password"
+                                    onChange={handleChange}
                                     type={showPassword ? 'text' : 'password'}
                                     endAdornment={
                                         <InputAdornment position="end">
@@ -131,66 +158,81 @@ export const Registro = () => {
                             </FormControl>
                         </Grid>
 
-                        {/* Repetir contraseña */}
-                        <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth variant="outlined">
-                                <InputLabel htmlFor="outlined-adornment-password2">
-                                    Repetir contraseña
-                                </InputLabel>
-                                <OutlinedInput
-                                    id="outlined-adornment-password2"
-                                    type={showPassword ? 'text' : 'password'}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                onClick={handleClickShowPassword}
-                                                onMouseDown={handleMouseDownPassword}
-                                                onMouseUp={handleMouseUpPassword}
-                                                edge="end"
-                                            >
-                                                {showPassword ? (
-                                                    <VisibilityOff />
-                                                ) : (
-                                                    <Visibility />
-                                                )}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    label="Repetir contraseña"
-                                />
-                            </FormControl>
-                        </Grid>
-
-                        {/* Teléfono */}
-                        <Grid item xs={12} sm={6}>
+                        {/* Nombre */}
+                        <Grid size = {{ xs:12, sm:6}} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <TextField
                                 required
-                                id="telefono"
+                                name="firstName"
+                                label="Nombre"
+                                type="text"
+                                variant="outlined"
+                                onChange={handleChange}
+                                sx={{ width: 239, marginRight: 3 }}
+                            />
+                        </Grid>
+
+                        {/* Apellido */}
+                        <Grid size = {{ xs:12, sm:6}}>
+                            <TextField
+                                required
+                                name="lastName"
+                                label="Apellido"
+                                type="text"
+                                variant="outlined"
+                                onChange={handleChange}
+                                sx={{ width: 239 }}
+                            />
+                        </Grid>
+
+                        {/* Email */}
+                        <Grid size = {{ xs:12, xl:12}}>
+                            <TextField
+                                required
+                                name="email"
+                                label="Email"
+                                type="email"
+                                variant="outlined"
+                                //sx={{ width: 239 }}
+                                fullWidth
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        
+
+                        
+
+                        {/* Teléfono */}
+                        <Grid size = {{ xs:12, sm:6}}>
+                            <TextField
+                                required
+                                name="phone"
                                 label="Teléfono"
                                 type="text"
                                 variant="outlined"
+                                onChange={handleChange}
                                 sx={{ width: 239, marginRight: 3 }}
                                 helperText="Sin O ni prefijo 15"
                             />
                         </Grid>
 
                         {/* CUIL */}
-                        <Grid item xs={12} sm={6}>
+                        <Grid size = {{ xs:12, sm:6}}>
                             <TextField
                                 required
-                                id="cuil"
+                                name="document"
                                 label="CUIT / CUIL"
                                 type="text"
                                 variant="outlined"
+                                onChange={handleChange}
                                 sx={{ width: 239 }}
                                 helperText="Ingrese el número sin guiones ni espacios"
                             />
                         </Grid>
                     </Grid>
-                </Box>
-                <Button
+                    <Button
                     variant="contained"
                     color="primary"
+                    type='submit'
                     sx={{
                         marginTop: '40px',
                         marginInline: 'auto',
@@ -200,6 +242,8 @@ export const Registro = () => {
                 >
                     Enviar
                 </Button>
+                </Box>
+                
             </Box>
         </Box>
     )

@@ -7,6 +7,7 @@ import { Soluciones } from './componentes/Soluciones'
 import { GrandesEmpresas } from './componentes/GrandesEmpresas'
 import { Registro } from './componentes/Registro'
 import { Footer } from './componentes/Footer'
+import { Cliente } from './componentes/Cliente'
 
 const App = () => {
     return (
@@ -23,6 +24,7 @@ const App = () => {
                     />
                     <Route path="/registro" element={<Registro />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/cliente" element={<Cliente />} />
                 </Routes>
                 <Footer />
             </Router>
