@@ -1,19 +1,18 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { NavInicio } from './componentes/NavInicio'
 import { Home } from './componentes/Home'
 import { Login } from './componentes/Login'
 import { Ubicaciones } from './componentes/Ubicaciones'
 import { Soluciones } from './componentes/Soluciones'
 import { GrandesEmpresas } from './componentes/GrandesEmpresas'
 import { Registro } from './componentes/Registro'
-import { Footer } from './componentes/Footer'
 import { Cliente } from './componentes/Cliente'
+import { NuevaReserva } from './componentes/NuevaReserva'
+import { MisReservas } from './componentes/MisReservas'
 
 const App = () => {
     return (
         <>
             <Router>
-                <NavInicio />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/ubicaciones" element={<Ubicaciones />} />
@@ -25,8 +24,9 @@ const App = () => {
                     <Route path="/registro" element={<Registro />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/cliente" element={<Cliente />} />
-                </Routes>
-                <Footer />
+                    <Route path="/reserva" element={<NuevaReserva />} />
+                    <Route path="/mis-reservas" element={<MisReservas />} />
+                </Routes>    
             </Router>
         </>
     )

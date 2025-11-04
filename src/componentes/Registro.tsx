@@ -14,6 +14,8 @@ import fondo from '../assets/foto-registro.jpg'
 import { useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { useNavigate } from "react-router-dom"
+import { Footer } from './Footer'
+import { BarraSuperior } from './BarraSuperior'
 
 export const Registro = () => {
     const [showPassword, setShowPassword] = useState(false)
@@ -68,6 +70,8 @@ export const Registro = () => {
     }
 
     return (
+        <>
+        <BarraSuperior />
         <Box
             sx={{
                 backgroundImage: `url(${fondo})`,
@@ -246,5 +250,7 @@ export const Registro = () => {
                 
             </Box>
         </Box>
+        <Footer />
+        </>
     )
 }

@@ -1,10 +1,13 @@
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import foto from '../assets/foto_portada.jpg'
+import { NavInicio } from './NavInicio'
+import { Footer } from './Footer'
 
 export const Home = () => {
     return (
         <>
+            <NavInicio />
             <Box
                 sx={{
                     width: '100%',
@@ -72,6 +75,7 @@ export const Home = () => {
                     />
                 </Box>
             </Box>
+            <Footer />
         </>
     )
 }

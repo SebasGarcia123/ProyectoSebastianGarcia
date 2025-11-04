@@ -1,0 +1,54 @@
+import { AppBar, Toolbar, Button, Box } from '@mui/material'
+import { Link } from 'react-router-dom'
+import logo from '../assets/logo.png'
+
+export const NavCliente = () => {
+    return (
+        <AppBar position="static" sx={{ px: 2, backgroundColor: '#9e9e9e' }}>
+            <Toolbar sx={{ height: 100, alignItems: 'center' }}>
+                {/* Logo */}
+                <Button
+                    component={Link}
+                    to="/"
+                    sx={{
+                        mr: 4,
+                        p: 2,
+                        display: 'flex',
+                        alignItems: 'center',
+                        minWidth: 0,
+                        padding: 0,
+                        borderRadius: 2,
+                        '&:hover': { backgroundColor: 'transparent' },
+                    }}
+                >
+                    <img
+                        src={logo}
+                        alt="Logo"
+                        width="200"
+                        style={{ borderRadius: '5px' }}
+                    />
+                </Button>
+                {/* Links izquierda */}
+                <Box sx={{ flexGrow: 1, marginRight: 3 }}>
+                    <Button component={Link} to="/mis-reservas" color="inherit" sx={{ marginRight: 3, fontSize: 20 }}>
+                        Mis reservas
+                    </Button>
+                    <Button component={Link} to="/reserva" color="inherit" sx={{ marginRight: 3, fontSize: 20 }}>
+                        Reservar
+                    </Button>
+                    
+                </Box>
+
+                {/* Links derecha */}
+                <Button
+                    component={Link}
+                    to="/Logout"
+                    color="primary"
+                    variant="contained"
+                >
+                    Cerrar Sesión
+                </Button>
+            </Toolbar>
+        </AppBar>
+    )
+}
