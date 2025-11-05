@@ -14,10 +14,11 @@ import fondo from '../assets/foto-registro.jpg'
 import { useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { useNavigate } from "react-router-dom"
-import { Footer } from './Footer'
-import { BarraSuperior } from './BarraSuperior'
+import { Footer } from '../componentes/Footer'
+import { BarraSuperior } from '../componentes/BarraSuperior'
 
 export const Registro = () => {
+
     const [showPassword, setShowPassword] = useState(false)
     const handleClickShowPassword = () => setShowPassword((show) => !show)
     const handleMouseDownPassword = (
@@ -33,7 +34,7 @@ export const Registro = () => {
     }
 
     const [objData, setObjData] = useState({user:"", password:"", firstName:"", lastName:"", email:"", phone:"", document:"", role:"client"})
-
+    
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setObjData(prev => ({ ...prev, [name]: value }))
@@ -49,11 +50,18 @@ export const Registro = () => {
                 },
                 body: JSON.stringify(objData),
     });
-            if (!response.ok) {
-                throw new Error('Error en la solicitud')
+            if(response.status === 400){
+                const responseData = await response.json()
+                //console.log(responseData.errors)
+                const errorMessages = {}
+                responseData.errors
             }
-            const data = await response.json()
-            console.log('Respuesta del servidor:', data)
+
+            // if (!response.ok) {
+            //     throw new Error('Error en la solicitud')
+            // }
+            // const data = await response.json()
+            // console.log('Respuesta del servidor:', data)
 
             navigate("/login")
 

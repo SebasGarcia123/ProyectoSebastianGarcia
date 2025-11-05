@@ -2,8 +2,8 @@ import { Box, Button, TextField, Typography } from '@mui/material'
 import fondo from '../assets/fondo-login.jpg'
 import { useState } from 'react'
 import { useNavigate } from "react-router-dom"
-import { BarraSuperior } from './BarraSuperior'
-import { Footer } from './Footer'
+import { BarraSuperior } from '../componentes/BarraSuperior'
+import { Footer } from '../componentes/Footer'
 
 export const Login = () => {
   const [objData, setObjData] = useState({ user: '', password: '' })

@@ -1,7 +1,6 @@
 import { AppBar, Toolbar, Button, Box } from '@mui/material'
 import { Link } from 'react-router-dom'
 import logo from '../assets/logo.png'
-import { alignItems } from '@mui/system'
 
 export const BarraSuperior = () => {
     return (
@@ -32,7 +31,7 @@ export const BarraSuperior = () => {
                 </Box>
                 <Button
                     component={Link}
-                    to="/Login"
+                    to="/"
                     color="primary"
                     variant="contained"
                 >

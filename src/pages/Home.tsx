@@ -1,8 +1,8 @@
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import foto from '../assets/foto_portada.jpg'
-import { NavInicio } from './NavInicio'
-import { Footer } from './Footer'
+import { NavInicio } from '../componentes/NavInicio'
+import { Footer } from '../componentes/Footer'
 
 export const Home = () => {
     return (

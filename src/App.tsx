@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Home } from './componentes/Home'
-import { Login } from './componentes/Login'
-import { Ubicaciones } from './componentes/Ubicaciones'
-import { Soluciones } from './componentes/Soluciones'
-import { GrandesEmpresas } from './componentes/GrandesEmpresas'
-import { Registro } from './componentes/Registro'
-import { Cliente } from './componentes/Cliente'
-import { NuevaReserva } from './componentes/NuevaReserva'
-import { MisReservas } from './componentes/MisReservas'
+import { Home } from './pages/Home'
+import { Login } from './pages/Login'
+import { Ubicaciones } from './pages/Ubicaciones'
+import { Soluciones } from './pages/Soluciones'
+import { GrandesEmpresas } from './pages/GrandesEmpresas'
+import { Registro } from './pages/Registro'
+import { Cliente } from './pages/Cliente'
+import { NuevaReserva } from './pages/NuevaReserva'
+import { MisReservas } from './pages/MisReservas'
 
 const App = () => {
     return (
