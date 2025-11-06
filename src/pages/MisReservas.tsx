@@ -1,6 +1,3 @@
-
 export const MisReservas = () => {
-  return (
-    <div>Mis-Reservas</div>
-  )
+    return <div>Mis-Reservas</div>
 }

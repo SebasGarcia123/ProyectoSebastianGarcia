@@ -4,29 +4,28 @@ import {
     Grid,
     TextField,
     Typography,
-    MenuItem
+    MenuItem,
 } from '@mui/material'
 import fondo from '../assets/foto-registro.jpg'
 import { useState, useEffect } from 'react'
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 import { Footer } from '../componentes/Footer'
 import { BarraSuperior } from '../componentes/BarraSuperior'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs'
 import type { Building, Space } from '../types' //, Reservation, RentType
 
 export const NuevaReserva = () => {
-
     const [objData, setObjData] = useState({
-        userId: "",
-        dateFrom: "",
-        dateTo: "",
-        buildingId: "",
-        spaceId: "",
-        totalPrice: "",
-        rentTipe: ""
+        userId: '',
+        dateFrom: '',
+        dateTo: '',
+        buildingId: '',
+        spaceId: '',
+        totalPrice: '',
+        rentTipe: '',
     })
 
     const [buildings, setBuildings] = useState<Building[]>([])
@@ -39,24 +38,26 @@ export const NuevaReserva = () => {
         const fetchData = async () => {
             try {
                 const [buildingsRes, spacesRes] = await Promise.all([
-                    fetch("http://localhost:4000/buildings"),
-                    fetch("http://localhost:4000/spaces")
+                    fetch('http://localhost:4000/buildings'),
+                    fetch('http://localhost:4000/spaces'),
                 ])
                 const buildingsData = await buildingsRes.json()
                 const spacesData = await spacesRes.json()
                 setBuildings(buildingsData)
                 setSpaces(spacesData)
             } catch (error) {
-                console.error("Error cargando datos:", error)
+                console.error('Error cargando datos:', error)
             }
         }
         fetchData()
     }, [])
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setObjData(prev => ({ ...prev, [name]: value }));
-};
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        const { name, value } = e.target
+        setObjData((prev) => ({ ...prev, [name]: value }))
+    }
 
     const sendData = async () => {
         try {
@@ -71,8 +72,7 @@ export const NuevaReserva = () => {
 
             const data = await response.json()
             console.log('Reserva creada:', data)
-            navigate("/cliente")
-
+            navigate('/cliente')
         } catch (error) {
             console.error('Error al enviar los datos:', error)
         }
@@ -113,14 +113,17 @@ export const NuevaReserva = () => {
                         mb: 6,
                     }}
                 >
-                    <Typography variant="h6" sx={{ textAlign: 'center', mb: 5 }}>
+                    <Typography
+                        variant="h6"
+                        sx={{ textAlign: 'center', mb: 5 }}
+                    >
                         Complete los campos para generar una reserva
                     </Typography>
 
                     <Box component="form" onSubmit={handleSubmit}>
                         <Grid container spacing={4}>
                             {/* 🔹 Building selector */}
-                            <Grid size = {{ xs:12, sm:6}}>
+                            <Grid size={{ xs: 12, sm: 6 }}>
                                 <TextField
                                     select
                                     required
@@ -140,7 +143,7 @@ export const NuevaReserva = () => {
                             </Grid>
 
                             {/* 🔹 Space selector */}
-                            <Grid size = {{ xs:12, sm:6}}>
+                            <Grid size={{ xs: 12, sm: 6 }}>
                                 <TextField
                                     select
                                     required
@@ -152,7 +155,11 @@ export const NuevaReserva = () => {
                                     onChange={handleChange}
                                 >
                                     {spaces
-                                        .filter((s) => s.buildingId === objData.buildingId)
+                                        .filter(
+                                            (s) =>
+                                                s.buildingId ===
+                                                objData.buildingId
+                                        )
                                         .map((s) => (
                                             <MenuItem key={s._id} value={s._id}>
                                                 {s.name}
@@ -163,28 +170,44 @@ export const NuevaReserva = () => {
 
                             {/* 🔹 Fechas */}
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <Grid size = {{ xs:12, sm:6}}>
+                                <Grid size={{ xs: 12, sm: 6 }}>
                                     <DatePicker
                                         label="Fecha de inicio"
-                                        value={objData.dateFrom ? dayjs(objData.dateFrom) : null}
+                                        value={
+                                            objData.dateFrom
+                                                ? dayjs(objData.dateFrom)
+                                                : null
+                                        }
                                         onChange={(date) =>
-                                            setObjData(prev => ({ ...prev, dateFrom: date?.toISOString() ?? "" }))
-                                            }
+                                            setObjData((prev) => ({
+                                                ...prev,
+                                                dateFrom:
+                                                    date?.toISOString() ?? '',
+                                            }))
+                                        }
                                     />
                                 </Grid>
-                                <Grid size = {{ xs:12, sm:6}}>
+                                <Grid size={{ xs: 12, sm: 6 }}>
                                     <DatePicker
                                         label="Fecha de finalización"
-                                        value={objData.dateTo ? dayjs(objData.dateTo) : null}
+                                        value={
+                                            objData.dateTo
+                                                ? dayjs(objData.dateTo)
+                                                : null
+                                        }
                                         onChange={(date) =>
-                                            setObjData(prev => ({ ...prev, dateFrom: date?.toISOString() ?? "" }))
-                                            }
+                                            setObjData((prev) => ({
+                                                ...prev,
+                                                dateFrom:
+                                                    date?.toISOString() ?? '',
+                                            }))
+                                        }
                                     />
                                 </Grid>
                             </LocalizationProvider>
 
                             {/* Ejemplo de otros campos */}
-                            <Grid size = {{ xs:12, sm:6}}>
+                            <Grid size={{ xs: 12, sm: 6 }}>
                                 <TextField
                                     name="totalPrice"
                                     label="Precio total"
@@ -195,7 +218,7 @@ export const NuevaReserva = () => {
                                 />
                             </Grid>
 
-                            <Grid size = {{ xs:12, sm:6}}>
+                            <Grid size={{ xs: 12, sm: 6 }}>
                                 <TextField
                                     name="rentTipe"
                                     label="Tipo de renta"
@@ -222,4 +245,3 @@ export const NuevaReserva = () => {
         </>
     )
 }
-

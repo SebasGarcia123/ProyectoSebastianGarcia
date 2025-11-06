@@ -30,13 +30,22 @@ export const NavCliente = () => {
                 </Button>
                 {/* Links izquierda */}
                 <Box sx={{ flexGrow: 1, marginRight: 3 }}>
-                    <Button component={Link} to="/mis-reservas" color="inherit" sx={{ marginRight: 3, fontSize: 20 }}>
+                    <Button
+                        component={Link}
+                        to="/mis-reservas"
+                        color="inherit"
+                        sx={{ marginRight: 3, fontSize: 20 }}
+                    >
                         Mis reservas
                     </Button>
-                    <Button component={Link} to="/reserva" color="inherit" sx={{ marginRight: 3, fontSize: 20 }}>
+                    <Button
+                        component={Link}
+                        to="/reserva"
+                        color="inherit"
+                        sx={{ marginRight: 3, fontSize: 20 }}
+                    >
                         Reservar
                     </Button>
-                    
                 </Box>
 
                 {/* Links derecha */}
