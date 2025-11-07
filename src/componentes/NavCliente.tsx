@@ -1,6 +1,7 @@
 import { AppBar, Toolbar, Button, Box } from '@mui/material'
 import { Link } from 'react-router-dom'
 import logo from '../assets/logo.png'
+import { BotonLogout } from './BotonLogout'
 
 export const NavCliente = () => {
     return (
@@ -49,14 +50,7 @@ export const NavCliente = () => {
                 </Box>
 
                 {/* Links derecha */}
-                <Button
-                    component={Link}
-                    to="/Logout"
-                    color="primary"
-                    variant="contained"
-                >
-                    Cerrar Sesión
-                </Button>
+                <BotonLogout />
             </Toolbar>
         </AppBar>
     )

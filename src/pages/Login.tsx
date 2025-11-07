@@ -33,8 +33,7 @@ export const Login = () => {
 
             const data = await response.json()
             console.log('Respuesta del servidor:', data)
-
-            localStorage.setItem('token', data.token)
+            sessionStorage.setItem('authToken', data.token)
 
             // 2) redirigir
 

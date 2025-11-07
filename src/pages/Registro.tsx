@@ -103,12 +103,6 @@ export const Registro = () => {
                 console.log(errorMessages)
             }
 
-            // if (!response.ok) {
-            //     throw new Error('Error en la solicitud')
-            // }
-            // const data = await response.json()
-            // console.log('Respuesta del servidor:', data)
-
             navigate('/login')
         } catch (error) {
             console.error('Error al enviar los datos:', error)

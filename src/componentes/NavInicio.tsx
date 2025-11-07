@@ -63,6 +63,7 @@ export const NavInicio = () => {
                 >
                     Iniciar Sesión
                 </Button>
+                
             </Toolbar>
         </AppBar>
     )
