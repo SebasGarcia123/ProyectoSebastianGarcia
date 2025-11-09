@@ -8,7 +8,12 @@ import { Registro } from '../pages/Registro'
 import { Cliente } from '../pages/Cliente'
 import { NuevaReserva } from '../pages/NuevaReserva'
 import { MisReservas } from '../pages/MisReservas'
-import { PrivateRoutes } from './PrivateRoutes'
+import { PrivateRoutesCliente } from './PrivateRoutesCliente'
+import { PrivateRoutesAdmin } from './PrivateRoutesAdmin'
+import { Administrador } from '../pages/Administrador'
+import { AdminNewSpace } from '../pages/AdminNewSpace'
+import { AdminStatistics } from '../pages/AdminStatistics'
+import { AdminManageUsers } from '../pages/AdminManageUsers'
 
 export const RoutesList = () => {
   return (
@@ -24,10 +29,16 @@ export const RoutesList = () => {
                     />
                     <Route path="/registro" element={<Registro />} />
                     <Route path="/login" element={<Login />} />
-                    <Route element = { <PrivateRoutes />} >
+                    <Route element = { <PrivateRoutesCliente />} >
                         <Route path="/cliente" element={<Cliente />} />
                         <Route path="/reserva" element={<NuevaReserva />} />
                         <Route path="/mis-reservas" element={<MisReservas />} />
+                    </Route>
+                    <Route element = { <PrivateRoutesAdmin />} >
+                        <Route path="/admin" element={<Administrador />} />
+                        <Route path="/manageUsers" element={<AdminManageUsers />} />
+                        <Route path="/nuevoEspacio" element={<AdminNewSpace />} />
+                        <Route path="/estadisticas" element={<AdminStatistics />} />
                     </Route>
                     
                 </Routes>

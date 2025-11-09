@@ -1,9 +1,10 @@
 import { NavAdmin } from "../componentes/NavAdmin"
 import { Footer } from "../componentes/Footer"
 import { Box } from "@mui/material"
+import { CustomerTable } from "../componentes/CustomerTable"
 //import fondo from '../assets/foto-registro.jpg'
 
-export const Administrador = () => {
+export const AdminManageUsers = () => {
   return (
     <>
         <NavAdmin />
@@ -21,7 +22,9 @@ export const Administrador = () => {
                     pt: 4,
                     flexGrow: 1,
                 }}
-            ></Box>
+            >
+            <CustomerTable />
+            </Box>
         <Footer />
     </>
   )

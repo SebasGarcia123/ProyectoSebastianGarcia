@@ -1,5 +1,6 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
 import fondo from '../assets/fondo-login.jpg'
+import axios, { AxiosError } from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BarraSuperior } from '../componentes/BarraSuperior'
@@ -17,31 +18,24 @@ export const Login = () => {
     const navigate = useNavigate()
 
     const senData = async () => {
-        try {
-            const response = await fetch('http://localhost:4000/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(objData),
-            })
+    try {
+        const { data } = await axios.post('http://localhost:4000/login', objData)
 
-            if (!response.ok) {
-                const text = await response.text()
-                throw new Error(text || 'Error en la solicitud')
+        console.log('Respuesta del servidor:', data)
+        sessionStorage.setItem('authToken', data.token)
+
+            if (data.user.role === 'client') {
+            navigate('/cliente')
+            }
+            if (data.user.role === 'admin') {
+            navigate('/admin')
             }
 
-            const data = await response.json()
-            console.log('Respuesta del servidor:', data)
-            sessionStorage.setItem('authToken', data.token)
-
-            // 2) redirigir
-
-            navigate('/cliente')
-        } catch (error) {
-            console.error('Error al enviar los datos:', error)
-        }
-    }
+    } catch (error) {
+    const err = error as AxiosError
+    console.error('Error al enviar los datos:', err.response?.data || err.message)
+}
+}
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
