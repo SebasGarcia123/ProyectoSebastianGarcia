@@ -14,6 +14,7 @@ import { Administrador } from '../pages/Administrador'
 import { AdminNewSpace } from '../pages/AdminNewSpace'
 import { AdminStatistics } from '../pages/AdminStatistics'
 import { AdminManageUsers } from '../pages/AdminManageUsers'
+import { OpcionesParaReserva } from '../pages/OpcionesParaReserva'  
 
 export const RoutesList = () => {
   return (
@@ -33,6 +34,7 @@ export const RoutesList = () => {
                         <Route path="/cliente" element={<Cliente />} />
                         <Route path="/reserva" element={<NuevaReserva />} />
                         <Route path="/mis-reservas" element={<MisReservas />} />
+                        <Route path="/espacios" element={<OpcionesParaReserva />} />
                     </Route>
                     <Route element = { <PrivateRoutesAdmin />} >
                         <Route path="/admin" element={<Administrador />} />

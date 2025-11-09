@@ -41,7 +41,7 @@ export const NavCliente = () => {
                     </Button>
                     <Button
                         component={Link}
-                        to="/reserva"
+                        to="/espacios"
                         color="inherit"
                         sx={{ marginRight: 3, fontSize: 20 }}
                     >

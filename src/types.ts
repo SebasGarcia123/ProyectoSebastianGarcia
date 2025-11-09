@@ -9,13 +9,10 @@ export interface Building {
   isActive: boolean;
 }
 
-export interface Space {
+export interface IBuildingBySpace {
   _id: string;
   name: string;
-  buildingId: string;
 }
-
-export type spaceType = 'floor' | 'office' | 'desk'
 
 export interface Reservation {
   _id: string;
@@ -28,7 +25,7 @@ export interface Reservation {
   rentTipe: RentType;
 }
 
-export type RentType = 'day' | 'week' | 'month' | 'year';
+export type RentType = 'Dia' | 'Semana' | 'Mes' | 'Año';
 
 export type ValidationError = {
     location: string
@@ -48,3 +45,16 @@ export type ValidationError = {
   document?: string
   role?: string
 }
+
+export interface ISpace {
+  _id: string
+  building: IBuildingBySpace
+  pictureUrl: string
+  spaceType: string
+  description: string
+  capacity: number
+  pricePerDay: number
+  isActive: boolean
+}
+
+export type spaceType = 'floor' | 'office' | 'desk'
