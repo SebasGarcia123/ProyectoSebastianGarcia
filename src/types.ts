@@ -19,7 +19,11 @@ export interface Reservation {
   userId: string;
   dateFrom: string;
   dateTo: string;
-  spaceId: string;
+  spaceId: string | {
+    _id: string;
+    spaceType: string;
+    building: Building | string;
+  }
   totalPrice: number;
   isActive: boolean;
   rentTipe: RentType;
@@ -48,7 +52,7 @@ export type ValidationError = {
 
 export interface ISpace {
   _id: string
-  building: IBuildingBySpace
+  building: IBuildingBySpace | string
   pictureUrl: string
   spaceType: string
   description: string

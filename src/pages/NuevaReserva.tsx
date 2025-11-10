@@ -5,6 +5,7 @@ import {
   TextField,
   Typography,
   MenuItem,
+  Alert,
 } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
@@ -47,14 +48,14 @@ const isDateReserved = (date: Dayjs) => {
   return reservasExistentes.some(r => {
     const start = dayjs(r.dateFrom);
     const end = dayjs(r.dateTo);
-    return date.isBetween(start, end, 'day', '[]'); // incluye limites
+    return date.isBetween(start, end, 'day', '[]');
   });
 };
 
   const [objData, setObjData] = useState({
-    userId: '', // Aquí deberías poner el userId del usuario logueado
+    userId: '',
     spaceId: space?._id || '',
-    buildingId: space?.building?._id || '',
+    buildingId: typeof space?.building === "string" ? space.building : space?.building?._id ?? '',
     dateFrom: '',
     dateTo: '',
     totalPrice: space?.pricePerDay || 0,
@@ -158,6 +159,9 @@ const isDateReserved = (date: Dayjs) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     sendData();
+    <Alert variant="filled" severity="success">
+    La reserva se generó con éxito
+    </Alert>
   };
 
   return (
@@ -202,7 +206,11 @@ const isDateReserved = (date: Dayjs) => {
                   label="Edificio"
                   variant="outlined"
                   fullWidth
-                  value={space?.building?.name || 'Nombre de edificio no disponible'}
+                  value={
+                    typeof space?.building === "string"
+                      ? "Nombre edificio no disponible"
+                      : space?.building?.name || "Nombre edificio no disponible"
+                  }
                 />
               </Grid>
 
