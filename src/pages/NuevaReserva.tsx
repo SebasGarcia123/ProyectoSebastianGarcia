@@ -6,8 +6,10 @@ import {
   Typography,
   MenuItem,
 } from '@mui/material';
+import Tooltip from '@mui/material/Tooltip';
+import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import fondo from '../assets/foto-registro.jpg';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Footer } from '../componentes/Footer';
@@ -16,12 +18,38 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
 import type { ISpace, RentType } from '../types';
+
+dayjs.extend(isBetween);
 
 export const NuevaReserva = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const space: ISpace | undefined = location.state?.space;
+  const [reservasExistentes, setReservasExistentes] = useState<{ dateFrom: string; dateTo: string; }[]>([]);
+
+  useEffect(() => {
+  const getData = async () => {
+    if (!space?._id) return;
+    const token = sessionStorage.getItem("authToken");
+    const r = await axios.get(`http://localhost:4000/reservations/space/${space._id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    setReservasExistentes(r.data);
+  };
+
+  getData();
+}, [space]);
+
+const isDateReserved = (date: Dayjs) => {
+  if (date.isBefore(dayjs(), 'day')) return true;
+  return reservasExistentes.some(r => {
+    const start = dayjs(r.dateFrom);
+    const end = dayjs(r.dateTo);
+    return date.isBetween(start, end, 'day', '[]'); // incluye limites
+  });
+};
 
   const [objData, setObjData] = useState({
     userId: '', // Aquí deberías poner el userId del usuario logueado
@@ -34,19 +62,29 @@ export const NuevaReserva = () => {
   });
 
   // 🔹 Manejo de cambios de RentType
-  const handleRentTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rentType = e.target.value as RentType;
-    setObjData(prev => ({ ...prev, rentType }));
-    if (objData.dateFrom) {
-      handleDateOrRentChange(dayjs(objData.dateFrom), rentType);
+ const handleRentTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const rentType = e.target.value as RentType;
+
+  setObjData(prev => {
+    const newState = { ...prev, rentType };
+    
+    if (prev.dateFrom) {
+      handleDateOrRentChange(dayjs(prev.dateFrom), rentType);
     }
-  };
+    
+    return newState;
+  });
+};
 
   // 🔹 Calcular automáticamente dateTo y totalPrice
-  const handleDateOrRentChange = (date: Dayjs | null, rentType?: RentType) => {
+  const handleDateOrRentChange =  async (date: Dayjs | null, rentType?: RentType) => {
     if (!date || !space) return;
 
     const type = rentType || objData.rentType;
+
+    if (!type) {
+    return;
+  }
     let endDate = date;
 
     switch (type) {
@@ -54,32 +92,35 @@ export const NuevaReserva = () => {
         endDate = date.add(1, 'day');
         break;
       case 'Semana':
-        endDate = date.add(7, 'week');
+        endDate = date.add(1, 'week');
         break;
       case 'Mes':
-        endDate = date.add(30, 'month');
+        endDate = date.add(1, 'month');
         break;
       case 'Año':
-        endDate = date.add(365, 'year');
+        endDate = date.add(1, 'year');
         break;
     }
 
-    // Calcular totalPrice
-    let multiplier = 1;
-    switch (type) {
-      case 'Dia':
-        multiplier = 1;
-        break;
-      case 'Semana':
-        multiplier = 7;
-        break;
-      case 'Mes':
-        multiplier = 30;
-        break;
-      case 'Año':
-        multiplier = 365;
-        break;
+    //Validacion de disponibilidad
+    const token = sessionStorage.getItem("authToken");
+    const r = await axios.get(`http://localhost:4000/spaces/${space._id}/availability`, {
+    params: {
+      dateFrom: date.toISOString(),
+      dateTo: endDate.toISOString(),
+    },
+    headers: { Authorization: `Bearer ${token}` }
+    });
+
+    if (!r.data.available) {
+      alert('Este espacio ya está reservado en esas fechas');
+      return;
     }
+
+    // Calcular totalPrice
+    const multiplier = type === 'Dia' ? 1 :
+                     type === 'Semana' ? 7 :
+                     type === 'Mes' ? 30 : 365;
 
     const totalPrice = space.pricePerDay * multiplier;
 
@@ -197,9 +238,40 @@ export const NuevaReserva = () => {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <Grid size={{ xs: 12, sm: 6 }}>
                   <DatePicker
+                    disabled={!objData.rentType}
                     label="Fecha de inicio"
                     value={objData.dateFrom ? dayjs(objData.dateFrom) : null}
-                    onChange={date => handleDateOrRentChange(date)}
+                    onChange={(date) => {
+                    if (!date) return;
+                    setObjData(prev => ({ ...prev, dateFrom: date?.toISOString() || '' }));
+                    handleDateOrRentChange(date);
+                    }}
+                    shouldDisableDate={(date) => isDateReserved(date)}
+                    slots={{
+                    day: (dayProps) => {
+                      const isReserved = isDateReserved(dayProps.day);
+                      if (isReserved) {
+                        return (
+                          <Tooltip title="Reservado">
+                            <span>
+                              <PickersDay
+                                {...dayProps}
+                                disabled
+                                sx={{
+                                  pointerEvents: "none",
+                                  backgroundColor: "#d89292ff",
+                                  color: "#ffffff",
+                                  borderRadius: "50%"
+                                }}
+                              />
+                            </span>
+                          </Tooltip>
+                        );
+                      }
+
+                      return <PickersDay {...dayProps} />;
+                    }
+                  }}
                   />
                 </Grid>
                 <Grid size={{ xs: 12, sm: 6 }}>
