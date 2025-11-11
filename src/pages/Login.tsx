@@ -48,6 +48,7 @@ export const Login = () => {
             <BarraSuperior />
             <Box
                 sx={{
+                    flexGrow: 1,
                     backgroundImage: `url(${fondo})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',

@@ -20,11 +20,11 @@ export default function SpaceCard({ space }: Props) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, border: 1, marginInline: 1 }}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
+          height="250"
           image={space.pictureUrl}
           alt={space.spaceType}
         />

@@ -4,30 +4,17 @@ import logo from '../assets/logo.png'
 
 export const NavInicio = () => {
     return (
-        <AppBar position="static" sx={{ px: 2, backgroundColor: '#9e9e9e' }}>
-            <Toolbar sx={{ height: 100, alignItems: 'center' }}>
+        <AppBar position="static" sx={{ px: 2, backgroundColor: '#efeaeaff', color: '#0265baff' }}>
+            <Toolbar sx={{ height: 70, alignItems: 'center' }}>
                 {/* Logo */}
-                <Button
-                    component={Link}
-                    to="/"
-                    sx={{
-                        mr: 4,
-                        p: 2,
-                        display: 'flex',
-                        alignItems: 'center',
-                        minWidth: 0,
-                        padding: 0,
-                        borderRadius: 2,
-                        '&:hover': { backgroundColor: 'transparent' },
-                    }}
-                >
                     <img
                         src={logo}
                         alt="Logo"
-                        width="200"
-                        style={{ borderRadius: '5px' }}
+                        width="180"
+                        
+                        style={{ borderRadius: '5px', marginRight: 30 }}
                     />
-                </Button>
+                {/* </Button> */}
                 {/* Links izquierda */}
                 <Box sx={{ flexGrow: 1 }}>
                     <Button component={Link} to="/ubicaciones" color="inherit">

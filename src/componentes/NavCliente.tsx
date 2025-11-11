@@ -5,8 +5,8 @@ import { BotonLogout } from './BotonLogout'
 
 export const NavCliente = () => {
     return (
-        <AppBar position="static" sx={{ px: 2, backgroundColor: '#9e9e9e' }}>
-            <Toolbar sx={{ height: 100, alignItems: 'center' }}>
+        <AppBar position="static" sx={{ px: 2, backgroundColor: '#efeaeaff', color: '#0265baff' }}>
+            <Toolbar sx={{ height: 70, alignItems: 'center' }}>
                 {/* Logo */}
                 <Button
                     component={Link}
@@ -35,7 +35,7 @@ export const NavCliente = () => {
                         component={Link}
                         to="/mis-reservas"
                         color="inherit"
-                        sx={{ marginRight: 3, fontSize: 20 }}
+                        sx={{ marginRight: 3, fontSize: 15 }}
                     >
                         Mis reservas
                     </Button>
@@ -43,7 +43,7 @@ export const NavCliente = () => {
                         component={Link}
                         to="/espacios"
                         color="inherit"
-                        sx={{ marginRight: 3, fontSize: 20 }}
+                        sx={{ marginRight: 3, fontSize: 15 }}
                     >
                         Reservar
                     </Button>

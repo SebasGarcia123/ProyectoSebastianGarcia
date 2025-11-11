@@ -4,6 +4,9 @@ import SpaceCard from "../componentes/CardAlternativas";
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import type { ISpace } from "../types"
+import AlternativaEdificios from "../componentes/AlternativaEdificios";
+import AlternativaEspacios from "../componentes/AltrnativaEspacios";
+import AlternativaFechas from "../componentes/AlternativaFechas"
 
 export const OpcionesParaReserva = () => {
   const [spaces, setSpaces] = useState<ISpace[]>([]);
@@ -71,6 +74,15 @@ export const OpcionesParaReserva = () => {
   return (
     <>
       <NavCliente />
+      <Box sx={{ display: "inline-block"}}>
+        <AlternativaEdificios />
+        <AlternativaEspacios />
+        <Box sx={{width : 300}}>
+        <AlternativaFechas />
+        </Box>
+        
+      </Box>
+      
       <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", p: 2 }}>
         {spaces.map((space) => (
           <SpaceCard key={space._id} space={space} />
