@@ -10,7 +10,8 @@ export const Footer = () => {
                 textAlign: 'center',
                 py: 3,
                 backgroundColor: '#efeaeaff',
-                width: '100%',
+                //width: '100%',
+                height: '10vh'
             }}
         >
             <Typography variant="body2">

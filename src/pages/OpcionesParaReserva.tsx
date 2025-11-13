@@ -4,9 +4,12 @@ import SpaceCard from "../componentes/CardAlternativas";
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import type { ISpace } from "../types"
+import { Footer } from "../componentes/Footer"
 import AlternativaEdificios from "../componentes/AlternativaEdificios";
 import AlternativaEspacios from "../componentes/AltrnativaEspacios";
 import AlternativaFechas from "../componentes/AlternativaFechas"
+import { Divider } from "@mui/material";
+
 
 export const OpcionesParaReserva = () => {
   const [spaces, setSpaces] = useState<ISpace[]>([]);
@@ -63,7 +66,7 @@ export const OpcionesParaReserva = () => {
   if (error) {
     return (
       <>
-        <NavCliente />
+        
         <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
           <Typography color="error">{error}</Typography>
         </Box>
@@ -72,23 +75,62 @@ export const OpcionesParaReserva = () => {
   }
 
   return (
-    <>
-      <NavCliente />
-      <Box sx={{ display: "inline-block"}}>
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      minHeight: "100vh", // 👈 ocupa toda la altura de la ventana
+    }}
+  >
+    <NavCliente />
+
+    {/* Contenido principal */}
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row", // 👈 corregido
+        gap: 5,
+        flexGrow: 1, // 👈 este ahora sí empuja el Footer hacia abajo
+        p: 2,
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          gap: 3,
+          py: 5,
+          pr: 3,
+        }}
+      >
         <AlternativaEdificios />
         <AlternativaEspacios />
-        <Box sx={{width : 300}}>
-        <AlternativaFechas />
+        <Box sx={{ width: 200 }}>
+          <AlternativaFechas />
         </Box>
-        
       </Box>
-      
-      <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", p: 2 }}>
+
+      <Divider orientation="vertical" flexItem />
+
+      <Box
+        sx={{
+          display: "flex",
+          gap: 2,
+          flexWrap: "wrap",
+          p: 2,
+          my: 5,
+          flexGrow: 1,
+        }}
+      >
         {spaces.map((space) => (
           <SpaceCard key={space._id} space={space} />
         ))}
       </Box>
-    </>
-  );
+    </Box>
+
+    <Footer />
+  </Box>
+);
 };
 

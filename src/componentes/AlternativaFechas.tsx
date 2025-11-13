@@ -1,27 +1,38 @@
-import dayjs from 'dayjs';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-//import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-//import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import FormLabel from '@mui/material/FormLabel';
+import { useState } from "react";
+import dayjs, { Dayjs } from "dayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import FormLabel from "@mui/material/FormLabel";
 
+interface AlternativaFechasProps {
+  onSelectDate?: (selectedDate: string) => void;
+}
 
-export default function ResponsiveDatePickers() {
+export default function AlternativaFechas({ onSelectDate }: AlternativaFechasProps) {
+  const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
+  const today = dayjs(); // fecha actual
+
+  const handleChange = (newValue: Dayjs | null) => {
+    setSelectedDate(newValue);
+    if (newValue) {
+      onSelectDate?.(newValue.format("YYYY-MM-DD")); // 👈 pasa la fecha al padre en formato ISO corto
+    }
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer
-        components={[
-          'DatePicker',
-          'MobileDatePicker',
-          'DesktopDatePicker',
-          'StaticDatePicker',
-        ]}
-      >
-        <FormLabel id="demo-row-radio-buttons-group-label">Filtrar por fecha</FormLabel>
-          <DesktopDatePicker defaultValue={dayjs('2022-04-17')} />
-      </DemoContainer>
+      <FormLabel sx={{ margin: 3}}>Filtrar por fecha</FormLabel>
+      <DesktopDatePicker
+        value={selectedDate}
+        onChange={handleChange}
+        minDate={today} // 👈 no permite elegir fechas anteriores a hoy
+        format="YYYY-MM-DD"
+        slotProps={{
+          textField: { fullWidth: true },
+        }}
+         sx={{ marginLeft: 3, marginY: 2, width: 200}}
+      />
     </LocalizationProvider>
   );
 }

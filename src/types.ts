@@ -61,4 +61,4 @@ export interface ISpace {
   isActive: boolean
 }
 
-export type spaceType = 'floor' | 'office' | 'desk'
+export type spaceType = 'Piso' | 'Oficina' | 'Escritorio'
