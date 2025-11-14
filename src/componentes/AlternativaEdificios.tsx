@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
-  Radio,
-  RadioGroup,
+  Checkbox,
   FormControlLabel,
   FormControl,
   FormLabel,
@@ -11,24 +10,25 @@ import {
 import type { Building } from '../types';
 
 interface AlternativaEdificiosProps {
-  onSelect?: (buildingId: string) => void;
+  value: string[];                    // <- IDs seleccionados (controlado por el padre)
+  onChange: (buildingIds: string[]) => void;  // <- padre actualiza el valor
 }
 
-export default function AlternativaEdificios({ onSelect }: AlternativaEdificiosProps) {
+export default function AlternativaEdificios({ value, onChange }: AlternativaEdificiosProps) {
   const [buildings, setBuildings] = useState<Building[]>([]);
-  const [selected, setSelected] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
   // 🔹 Cargar edificios desde la API
   useEffect(() => {
     const fetchBuildings = async () => {
       try {
-  const token = sessionStorage.getItem("authToken");
-  const res = await axios.get<Building[]>('http://localhost:4000/buildings', {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+        const token = sessionStorage.getItem("authToken");
+        const res = await axios.get<Building[]>('http://localhost:4000/buildings', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
         setBuildings(res.data.filter((b) => b.isActive));
       } catch (error) {
         console.error('Error al obtener edificios:', error);
@@ -40,34 +40,45 @@ export default function AlternativaEdificios({ onSelect }: AlternativaEdificiosP
     fetchBuildings();
   }, []);
 
-  // 🔹 Manejar selección
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const buildingId = event.target.value;
-    setSelected(buildingId);
-    if (onSelect) onSelect(buildingId);
+  // 🔹 Manejar selección múltiple
+  const handleToggle = (buildingId: string) => {
+    let updatedSelected: string[];
+
+    if (value.includes(buildingId)) {
+      updatedSelected = value.filter(id => id !== buildingId);
+    } else {
+      updatedSelected = [...value, buildingId];
+    }
+
+    onChange(updatedSelected);   // <- avisamos al padre
   };
 
   if (loading) return <CircularProgress sx={{ margin: 2 }} />;
 
+  // 🔹 Obtener edificios únicos por nombre
+  const uniqueBuildings = Array.from(
+    new Map(buildings.map(b => [b.name, b])).values()
+  );
+
   return (
     <FormControl sx={{ margin: 2 }}>
-      <FormLabel id="label-edificios" sx={{ margin: 1 }}>Filtrar por edificio</FormLabel>
-      <RadioGroup
-        aria-labelledby="label-edificios"
-        name="radio-group-edificios"
-        value={selected}
-        onChange={handleChange}
-      >
-        {buildings.map((building) => (
-          <FormControlLabel
-            key={building._id}
-            value={building._id}
-            control={<Radio size="small" />}
-            label={building.name}
-            sx={{ marginLeft:1}}
-          />
-        ))}
-      </RadioGroup>
+      <FormLabel id="label-edificios" sx={{ margin: 1 }}>
+        Edificio
+      </FormLabel>
+
+      {uniqueBuildings.map((b) => (
+        <FormControlLabel
+          key={b._id}
+          control={
+            <Checkbox
+              checked={value.includes(b._id)}     // <- ahora usa value del padre
+              onChange={() => handleToggle(b._id)}
+            />
+          }
+          label={b.name}
+        />
+      ))}
     </FormControl>
   );
 }
+

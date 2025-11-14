@@ -20,7 +20,15 @@ export default function SpaceCard({ space }: Props) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345, border: 1, marginInline: 1 }}>
+    <Card sx={{ maxWidth: 300,
+                height: 450,
+                border: 1,
+                marginInline: 1, 
+                transition: "0.2s",
+                "&:hover" :{
+                  transform: "scale(1.05)",
+                }
+                }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -30,8 +38,10 @@ export default function SpaceCard({ space }: Props) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {space.building?.name || "Nombre de edificio no disponible"} 
-          </Typography>
+            {typeof space.building === "object"
+              ? space.building.name
+              : "Nombre de edificio no disponible"}
+        </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             {space.description}
           </Typography>
@@ -44,7 +54,7 @@ export default function SpaceCard({ space }: Props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary" onClick={handleClick}>
+        <Button size="small" color="primary" variant="outlined" onClick={handleClick}>
           Lo quiero!
         </Button>
       </CardActions>

@@ -6,15 +6,54 @@ import axios, { AxiosError } from "axios";
 import type { ISpace } from "../types"
 import { Footer } from "../componentes/Footer"
 import AlternativaEdificios from "../componentes/AlternativaEdificios";
-import AlternativaEspacios from "../componentes/AltrnativaEspacios";
+import AlternativaEspacios from "../componentes/AlternativaEspacios";
 import AlternativaFechas from "../componentes/AlternativaFechas"
 import { Divider } from "@mui/material";
+import AlternativaCapacidad from "../componentes/AlternativaCapacidad";
 
 
 export const OpcionesParaReserva = () => {
   const [spaces, setSpaces] = useState<ISpace[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [filtroEdificios, setFiltroEdificio] = useState<string[]>([]);
+  const [filtroEspacios, setFiltroEspacio] = useState<string[]>([]);
+  const [filtroCapacidad, setFiltroCapacidad] = useState<string[]>([]);
+  const [filtroDesde, setFiltroDesde] = useState<Date | null>(null);
+  const [filtroHasta, setFiltroHasta] = useState<Date | null>(null);
+
+  const filteredSpaces = spaces.filter((s) => {
+  // Filtrar por edificio
+  if (filtroEdificios.length > 0 && !filtroEdificios.includes(s.building.toString())) {
+    return false;
+  }
+
+  // Filtrar por tipo de espacio
+  if (filtroEspacios.length > 0 && !filtroEspacios.includes(s.spaceType)) {
+    return false;
+  }
+
+  // Filtrar por capacidad
+  if (filtroCapacidad.length > 0) {
+    const cap = s.capacity;
+
+    let cumpleCapacidad = false;
+
+    if (filtroCapacidad.includes("1") && cap === 1) cumpleCapacidad = true;
+    if (filtroCapacidad.includes("Entre 2 y 15") && cap >= 2 && cap <= 15) cumpleCapacidad = true;
+    if (filtroCapacidad.includes("Entre 16 y 30") && cap >= 16 && cap <= 30) cumpleCapacidad = true;
+    if (filtroCapacidad.includes("Más de 30") && cap > 30) cumpleCapacidad = true;
+
+    if (!cumpleCapacidad) return false;
+  }
+
+  // Filtrar por fechas (si las estas usando)
+  if (filtroDesde && new Date(s.dateFrom) > filtroDesde) return false;
+  if (filtroHasta && new Date(s.dateTo) < filtroHasta) return false;
+
+  return true;
+});
+
 
   useEffect(() => {
     const getSpaces = async () => {
@@ -74,6 +113,7 @@ export const OpcionesParaReserva = () => {
     );
   }
 
+
   return (
   <Box
     sx={{
@@ -88,9 +128,9 @@ export const OpcionesParaReserva = () => {
     <Box
       sx={{
         display: "flex",
-        flexDirection: "row", // 👈 corregido
+        flexDirection: "row",
         gap: 5,
-        flexGrow: 1, // 👈 este ahora sí empuja el Footer hacia abajo
+        flexGrow: 1,
         p: 2,
       }}
     >
@@ -99,16 +139,42 @@ export const OpcionesParaReserva = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
-          gap: 3,
-          py: 5,
+          gap: 1,
+          py: 3,
           pr: 3,
         }}
-      >
-        <AlternativaEdificios />
-        <AlternativaEspacios />
+      > 
+          <Typography sx={{
+                              color: "rgba(0, 0, 0, 0.87)",
+                              margin: 3,
+                              marginBottom: 4,
+                              fontSize: "1.5rem",
+                              fontFamily: `"Roboto", "Helvetica", "Arial", "sans-serif"`,
+                          }}>
+            Filtros
+          </Typography>
         <Box sx={{ width: 200 }}>
-          <AlternativaFechas />
+        <AlternativaEspacios
+          espacios={espacios}
+          filtroTipo={filtroTipo}
+          filtroCapacidad={filtroCapacidad}
+          filtroRentType={filtroRentType}
+          dateFrom={dateFrom}
+          dateTo={dateTo}
+        />
         </Box>
+        <AlternativaEdificios 
+          value={filtroEdificio}
+          onChange={setFiltroEdificio}
+        />
+        <AlternativaEspacios 
+          value={filtroEspacio}
+          onChange={setFiltroEspacio}
+        />
+        <AlternativaCapacidad
+          value={filtroCapacidad}
+          onChange={setFiltroCapacidad}
+        />
       </Box>
 
       <Divider orientation="vertical" flexItem />
@@ -123,7 +189,7 @@ export const OpcionesParaReserva = () => {
           flexGrow: 1,
         }}
       >
-        {spaces.map((space) => (
+        {filteredSpaces.map((space) => (
           <SpaceCard key={space._id} space={space} />
         ))}
       </Box>
