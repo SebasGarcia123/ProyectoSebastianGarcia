@@ -7,7 +7,6 @@ import type { ISpace } from "../types"
 import { Footer } from "../componentes/Footer"
 import AlternativaEdificios from "../componentes/AlternativaEdificios";
 import AlternativaEspacios from "../componentes/AlternativaEspacios";
-import AlternativaFechas from "../componentes/AlternativaFechas"
 import { Divider } from "@mui/material";
 import AlternativaCapacidad from "../componentes/AlternativaCapacidad";
 
@@ -19,40 +18,43 @@ export const OpcionesParaReserva = () => {
   const [filtroEdificios, setFiltroEdificio] = useState<string[]>([]);
   const [filtroEspacios, setFiltroEspacio] = useState<string[]>([]);
   const [filtroCapacidad, setFiltroCapacidad] = useState<string[]>([]);
-  const [filtroDesde, setFiltroDesde] = useState<Date | null>(null);
-  const [filtroHasta, setFiltroHasta] = useState<Date | null>(null);
 
   const filteredSpaces = spaces.filter((s) => {
-  // Filtrar por edificio
-  if (filtroEdificios.length > 0 && !filtroEdificios.includes(s.building.toString())) {
-    return false;
-  }
+    // Filtrar por edificio
+    
+  const buildingId = typeof s.building === 'string'
+    ? s.building
+    : s.building._id;
 
-  // Filtrar por tipo de espacio
-  if (filtroEspacios.length > 0 && !filtroEspacios.includes(s.spaceType)) {
-    return false;
-  }
+    if (
+      filtroEdificios.length > 0 &&
+      !filtroEdificios.includes(String(buildingId))
+    ) {
+      return false;
+    }
 
-  // Filtrar por capacidad
-  if (filtroCapacidad.length > 0) {
-    const cap = s.capacity;
+    // Filtrar por tipo de espacio
+    if (filtroEspacios.length > 0 && !filtroEspacios.includes(s.spaceType)) {
+      return false;
+    }
 
-    let cumpleCapacidad = false;
+    // Filtrar por capacidad
+    if (filtroCapacidad.length > 0) {
+      const cap = s.capacity;
 
-    if (filtroCapacidad.includes("1") && cap === 1) cumpleCapacidad = true;
-    if (filtroCapacidad.includes("Entre 2 y 15") && cap >= 2 && cap <= 15) cumpleCapacidad = true;
-    if (filtroCapacidad.includes("Entre 16 y 30") && cap >= 16 && cap <= 30) cumpleCapacidad = true;
-    if (filtroCapacidad.includes("Más de 30") && cap > 30) cumpleCapacidad = true;
+      let cumpleCapacidad = false;
 
-    if (!cumpleCapacidad) return false;
-  }
+      if (filtroCapacidad.includes("1") && cap === 1) cumpleCapacidad = true;
+      if (filtroCapacidad.includes("Entre 2 y 15") && cap >= 2 && cap <= 15) cumpleCapacidad = true;
+      if (filtroCapacidad.includes("Entre 16 y 30") && cap >= 16 && cap <= 30) cumpleCapacidad = true;
+      if (filtroCapacidad.includes("Más de 30") && cap > 30) cumpleCapacidad = true;
 
-  // Filtrar por fechas (si las estas usando)
-  if (filtroDesde && new Date(s.dateFrom) > filtroDesde) return false;
-  if (filtroHasta && new Date(s.dateTo) < filtroHasta) return false;
+      if (!cumpleCapacidad) return false;
+    }
 
-  return true;
-});
+
+    return true;
+  });
 
 
   useEffect(() => {
@@ -119,7 +121,7 @@ export const OpcionesParaReserva = () => {
     sx={{
       display: "flex",
       flexDirection: "column",
-      minHeight: "100vh", // 👈 ocupa toda la altura de la ventana
+      minHeight: "100vh",
     }}
   >
     <NavCliente />
@@ -146,31 +148,26 @@ export const OpcionesParaReserva = () => {
       > 
           <Typography sx={{
                               color: "rgba(0, 0, 0, 0.87)",
-                              margin: 3,
+                              margin: 2,
                               marginBottom: 4,
                               fontSize: "1.5rem",
                               fontFamily: `"Roboto", "Helvetica", "Arial", "sans-serif"`,
+                              background: "rgba(144, 192, 209, 0.94)",
+                              width: 300,
+                              padding: 2
                           }}>
             Filtros
           </Typography>
-        <Box sx={{ width: 200 }}>
-        <AlternativaEspacios
-          espacios={espacios}
-          filtroTipo={filtroTipo}
-          filtroCapacidad={filtroCapacidad}
-          filtroRentType={filtroRentType}
-          dateFrom={dateFrom}
-          dateTo={dateTo}
-        />
-        </Box>
         <AlternativaEdificios 
-          value={filtroEdificio}
+          value={filtroEdificios}
           onChange={setFiltroEdificio}
         />
+
         <AlternativaEspacios 
-          value={filtroEspacio}
+          value={filtroEspacios}
           onChange={setFiltroEspacio}
         />
+
         <AlternativaCapacidad
           value={filtroCapacidad}
           onChange={setFiltroCapacidad}

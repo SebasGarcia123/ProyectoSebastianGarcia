@@ -31,8 +31,8 @@ export const MisReservas = () => {
     <>
     <Box style={{ display:"flex", flexDirection:"column", minHeight:"100vh" }}>
     <NavCliente />
-    <Box style={{ flex: 1 }}>
-    <TableContainer component={Paper} sx={{ mt:4 }}>
+    <Box  style={{ flex: 1, margin: 2 }}>
+    <TableContainer component={Paper} sx={{ m:4 }}>
       <Table>
         <TableHead>
           <TableRow>
