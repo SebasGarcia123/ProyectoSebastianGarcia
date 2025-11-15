@@ -1,0 +1,28 @@
+.services-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.service-card {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: 24px;
+  border: 2px solid #e0e0e0;
+  background-color: white;
+  max-width: 200px;
+  width: 20%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  gap: 16px;
+}
+
+.service-icon {
+  font-size: 30px;
+}
+
+.service-title {
+  font-size: 1rem;     /* equivalente a Typography h4 */
+  font-weight: bold;
+}
