@@ -9,7 +9,7 @@ export const PrivateRoutesCliente = () => {
   const decoded = jwtDecode(token) as { role:string, exp:number }
 
   if(decoded.exp * 1000 < Date.now()) return <Navigate to="/login" />
-  if(decoded.role !== "client") return <Navigate to="/" />
+  if(decoded.role !== "cliente") return <Navigate to="/" />
 
   return <Outlet/>
 }

@@ -24,7 +24,7 @@ export const Login = () => {
         console.log('Respuesta del servidor:', data)
         sessionStorage.setItem('authToken', data.token)
 
-            if (data.user.role === 'client') {
+            if (data.user.role === 'cliente') {
             navigate('/cliente')
             }
             if (data.user.role === 'admin') {

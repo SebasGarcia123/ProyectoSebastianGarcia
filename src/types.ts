@@ -61,4 +61,12 @@ export interface ISpace {
   isActive: boolean
 }
 
-export type spaceType = 'Piso' | 'Oficina' | 'Escritorio'
+export type spaceType = 'Piso' | 'Oficina' | 'Escritorio co-working'
+
+export interface CreateBuildingRequest {
+  name: string
+  address: string
+  city: string
+  country: string
+  postalCode: string
+}

@@ -141,18 +141,19 @@ export const OpcionesParaReserva = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
-          gap: 1,
+          //gap: 1,
           py: 3,
           pr: 3,
+          background: "linear-gradient(90deg, #f2f8f9ff, #efeaeaff)",
         }}
       > 
           <Typography sx={{
                               color: "rgba(0, 0, 0, 0.87)",
-                              margin: 2,
-                              marginBottom: 4,
+                              //margin: 2,
+                              marginBottom: 3,
                               fontSize: "1.5rem",
                               fontFamily: `"Roboto", "Helvetica", "Arial", "sans-serif"`,
-                              background: "rgba(144, 192, 209, 0.94)",
+                              display: "block",
                               width: 300,
                               padding: 2
                           }}>
