@@ -11,8 +11,8 @@ import { MisReservas } from '../pages/MisReservas'
 import { PrivateRoutesCliente } from './PrivateRoutesCliente'
 import { PrivateRoutesAdmin } from './PrivateRoutesAdmin'
 import { Administrador } from '../pages/Administrador'
-import { AdminNewSpace } from '../pages/AdminNewSpace'
-import { AdminStatistics } from '../pages/AdminStatistics'
+import { AdminNuevoRecurso } from '../pages/AdminNuevoRecurso'
+import { AdminEstadisticas } from '../pages/AdminEstadisticas'
 import { AdminManageUsers } from '../pages/AdminManageUsers'
 import { OpcionesParaReserva } from '../pages/OpcionesParaReserva'  
 
@@ -39,8 +39,8 @@ export const RoutesList = () => {
                     <Route element = { <PrivateRoutesAdmin />} >
                         <Route path="/admin" element={<Administrador />} />
                         <Route path="/manageUsers" element={<AdminManageUsers />} />
-                        <Route path="/nuevoEspacio" element={<AdminNewSpace />} />
-                        <Route path="/estadisticas" element={<AdminStatistics />} />
+                        <Route path="/nuevoRecurso" element={<AdminNuevoRecurso />} />
+                        <Route path="/estadisticas" element={<AdminEstadisticas />} />
                     </Route>
                     
                 </Routes>

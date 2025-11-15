@@ -1,7 +1,7 @@
 import { NavAdmin } from "../componentes/NavAdmin"
 import { Footer } from "../componentes/Footer"
 import { Box } from "@mui/material"
-//import fondo from '../assets/foto-registro.jpg'
+import fondo from '../assets/foto-registro.jpg'
 
 export const Administrador = () => {
   return (
@@ -9,7 +9,7 @@ export const Administrador = () => {
         <NavAdmin />
         <Box
                 sx={{
-                    //backgroundImage: `url(${fondo})`,
+                    backgroundImage: `url(${fondo})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',

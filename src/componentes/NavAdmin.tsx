@@ -41,7 +41,7 @@ export const NavAdmin = () => {
                     </Button>
                     <Button
                         component={Link}
-                        to="/reserva"
+                        to="/nuevoRecurso"
                         color="inherit"
                         sx={{ marginRight: 3, fontSize: 15 }}
                     >
@@ -49,7 +49,7 @@ export const NavAdmin = () => {
                     </Button>
                     <Button
                         component={Link}
-                        to="/reserva"
+                        to="/estadisticas"
                         color="inherit"
                         sx={{ marginRight: 3, fontSize: 15 }}
                     >
